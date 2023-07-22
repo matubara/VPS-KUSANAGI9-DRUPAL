@@ -4,7 +4,7 @@ read -p "Press [Enter] key to move on to the next.";
 dbname="studypocket-dev"
 dbuser="studypocket-dev"
 dbpass="melb1999"
-FQDN="app2.studypocket.jp"
+FQDN="app3.studypocket.jp"
 email="admin@sinceretechnology.com.au"
 
 kusanagi provision --lamp --dbname=${dbname} --dbuser=${dbuser} --dbpass=${dbpass} --email=${email} --fqdn ${FQDN} crm_studypocket_dev
