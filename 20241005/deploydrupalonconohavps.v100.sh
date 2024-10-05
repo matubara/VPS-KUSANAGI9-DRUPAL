@@ -28,21 +28,22 @@ source ./const_deploydrupalonconohavps.v100.sh
  echo "----------------------"
  echo "Const settings"
  echo "Settings for Kusanagi"
- echo dbrootpath=${GREEN}$dbrootpass${RESET}
- echo provname=${GREEN}$provname${RESET}
- echo dbname=${GREEN}$dbname${RESET}
- echo dbuser=${GREEN}$dbuser${RESET}
- echo dbpass=${GREEN}$dbpass${RESET}
- echo FQDN=${GREEN}$FQDN${RESET}
- echo email=${GREEN}$email${RESET}
+ echo KUSANAGIパスワード kusanagipass=${GREEN}$kusanagipass${RESET}
+ echo DBルートパスワード dbrootpath=${GREEN}$dbrootpass${RESET}
+ echo KUSANAGIプロファイル kusanagiprofile=${GREEN}$kusanagiprofile${RESET}
+ echo DB名 dbname=${GREEN}$dbname${RESET}
+ echo DBユーザ dbuser=${GREEN}$dbuser${RESET}
+ echo DBパスワード dbpass=${GREEN}$dbpass${RESET}
+ echo ドメイン名 FQDN=${GREEN}$FQDN${RESET}
+ echo 管理者メールアドレス email=${GREEN}$email${RESET}
  echo "Settings for Drupal"
- echo proj=${YELLOW}$proj
- echo drupalver=${YELLOW}$drupalver${RESET}
- echo adminusr=${YELLOW}$adminuser${RESET}
- echo adminpass=${YELLOW}$adminpass${RESET}
+ echo Drupalプロジェクト名 drupalproject=${YELLOW}$drupalproject
+ echo Drupalバージョン drupalver=${YELLOW}$drupalver${RESET}
+ echo DrupalユーザID drupalusr=${YELLOW}$drupalusr${RESET}
+ echo Drupalパスワード drupalpass=${YELLOW}$drupalpass${RESET}
  echo "----------------------"
 
-provpath=/home/kusanagi/${provname}/
+provpath=/home/kusanagi/${kusanagiprofile}/
 
 echo "【Drupal】環境構築 KUSANAGI環境およびDrupal開発環境インストールを実施します"
  echo "【注意】※※※ kusanagiの初期化はスキップします（必要ならスクリプトを変更してください）"
@@ -61,20 +62,20 @@ read -p $CONFIRMMES
 
 
 echo "【Kusanagi】LAMP環境構築 KUSANAGI プロビジョニングを実施します"
-echo "作成するプロファイルの名前は、$provname です。"
+echo "作成するプロファイルの名前は、$kusanagiprofile です。"
 read -p $CONFIRMMES
 
-kusanagi provision --lamp --dbname=${dbname} --dbuser=${dbuser} --dbpass=${dbpass} --email=${email} --fqdn ${FQDN}  ${provname}
+kusanagi provision --lamp --dbname=${dbname} --dbuser=${dbuser} --dbpass=${dbpass} --email=${email} --fqdn ${FQDN}  ${kusanagiprofile}
 
 #プロビジョニングフォルダに移動
-cd ./${provname}
+cd ./${kusanagiprofile}
 
 
 echo "【Drupal】環境構築 COMPOSERで DRUPALプロジェクトをインストールします"
 read -p $CONFIRMMES
 
-echo "mkdir ${proj} && cd ${proj} && composer create-project drupal/recommended-project:${drupalver} tmp && cp -r tmp/. . && rm -rf tmp";
-mkdir ${proj} && cd ${proj} && composer create-project drupal/recommended-project:${drupalver} tmp && cp -r tmp/. . && rm -rf tmp 
+echo "mkdir ${drupalproject} && cd ${drupalproject} && composer create-project drupal/recommended-project:${drupalver} tmp && cp -r tmp/. . && rm -rf tmp";
+mkdir ${drupalproject} && cd ${drupalproject} && composer create-project drupal/recommended-project:${drupalver} tmp && cp -r tmp/. . && rm -rf tmp 
 
 
 echo "【Drupal】環境構築 COMPOSERで drushをインストールします"
@@ -90,7 +91,7 @@ sudo mv drush.phar /usr/local/bin/drush -f
 sleep 1
 
 echo "【Drupal】環境構築 drushランチャー環境を設定します（再起動時は環境変数が消えるため必要なら~/.bash_profileに追加すること）"
-export DRUSH_LAUNCHER_FALLBACK=${provpath}${proj}/vendor/drush/drush/drush
+export DRUSH_LAUNCHER_FALLBACK=${provpath}${drupalproject}/vendor/drush/drush/drush
 echo $DRUSH_LAUNCHER_FALLBACK
 drush --version
 
@@ -101,16 +102,16 @@ echo "問題があればここで中断してdrushコマンドが使えるよう
 echo "【Drupal】環境構築 DRUSHコマンドでDRUPALサイトを自動構築します"
 read -p $CONFIRMMES
 
-echo "drush site:install --db-url=mysql://${dbuser}:${dbpass}@localhost:3306/${dbname} --account-name=${adminuser} --account-pass=${adminpass}"
-drush site:install -y --db-url=mysql://${dbuser}:${dbpass}@localhost:3306/${dbname} --account-name=${adminuser} --account-pass=${adminpass}
+echo "drush site:install --db-url=mysql://${dbuser}:${dbpass}@localhost:3306/${dbname} --account-name=${drupalusr} --account-pass=${drupalpass}"
+drush site:install -y --db-url=mysql://${dbuser}:${dbpass}@localhost:3306/${dbname} --account-name=${drupalusr} --account-pass=${drupalpass}
 
 sleep 1
 
 echo "【Drupal】環境構築 DRUPAL用APACHE設定変更します（/etc/opt/kusanagi/httpd/conf.d の対象ファイルを変更）"
 read -p $CONFIRMMES
 
-sudo cp /etc/opt/kusanagi/httpd/conf.d/${provname}.conf /etc/opt/kusanagi/httpd/conf.d/${provname}.conf.bak.for-ssl-update
-sudo sed -i -e "s/\/DocumentRoot/\/${proj}\/web/g" /etc/opt/kusanagi/httpd/conf.d/${provname}.conf  
+sudo cp /etc/opt/kusanagi/httpd/conf.d/${kusanagiprofile}.conf /etc/opt/kusanagi/httpd/conf.d/${kusanagiprofile}.conf.bak.for-ssl-update
+sudo sed -i -e "s/\/DocumentRoot/\/${drupalproject}\/web/g" /etc/opt/kusanagi/httpd/conf.d/${kusanagiprofile}.conf  
 
 echo "【Drupal】環境構築 KUSANAGIコマンドでPHP他を再起動します"
 kusanagi restart
