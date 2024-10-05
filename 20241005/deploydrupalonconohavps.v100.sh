@@ -28,19 +28,18 @@ source ./const_deploydrupalonconohavps.v100.sh
  echo "----------------------"
  echo "Const settings"
  echo "Settings for Kusanagi"
- echo dbrootpath=$dbrootpass
- echo provname=$provname
- echo dbname=$dbname
- echo dbuser=$dbuser
- echo dbpass=$dbpass
- echo FQDN=$FQDN
- echo email=$email
+ echo dbrootpath=${GREEN}$dbrootpass${RESET}
+ echo provname=${GREEN}$provname${RESET}
+ echo dbname=${GREEN}$dbname${RESET}
+ echo dbuser=${GREEN}$dbuser${RESET}
+ echo dbpass=${GREEN}$dbpass${RESET}
+ echo FQDN=${GREEN}$FQDN${RESET}
+ echo email=${GREEN}$email${RESET}
  echo "Settings for Drupal"
- echo provpath=$provpath
- echo proj=$proj
- echo drupalver=$drupalver
- echo adminusr=$adminuser
- echo adminpass=$adminpass
+ echo proj=${YELLOW}$proj
+ echo drupalver=${YELLOW}$drupalver${RESET}
+ echo adminusr=${YELLOW}$adminuser${RESET}
+ echo adminpass=${YELLOW}$adminpass${RESET}
  echo "----------------------"
 
 provpath=/home/kusanagi/${provname}/
