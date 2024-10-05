@@ -8,15 +8,15 @@ kusanagipass="melb1999"
 #MYSQLルートパスワード
 dbrootpass="melb1999"
 #プロビジョニングフォルダ名
-provname="cloudtest"
+provname="test2"
 #データベース名
-dbname="cloudtest"
+dbname="test2"
 #データベースユーザ名
-dbuser="cloudtest"
+dbuser="test2"
 #データベースパスワード名
 dbpass="melb1999"
 #FQDN（ドメイン）名
-FQDN="cloudtest.sincerew.online"
+FQDN="test2.sincerew.online"
 #管理者メールアドレス
 email="admin@sincerew.online"
 
@@ -24,7 +24,7 @@ email="admin@sincerew.online"
 # Drupal構築時に必要な情報
 ###############################
 #Drupalプロジェクトフォルダ名
-proj=cloudtest
+proj=test2
 #Drupalバージョン
 #drupalver=10.0.x-dev@dev
 drupalver=10.3.6

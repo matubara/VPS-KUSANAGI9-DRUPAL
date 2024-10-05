@@ -68,8 +68,8 @@ composer require drush/drush
 
 echo "【Drupal】環境構築 DRUSHランチャーをインストールする"
 wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar
-chmod +x drush.phar
-mv drush.phar /usr/local/bin/drush
+sudo chmod +x drush.phar
+sudo mv drush.phar /usr/local/bin/drush -f
 
 sleep 1
 
@@ -85,7 +85,7 @@ echo "【Drupal】環境構築 DRUSHコマンドでDRUPALサイトを自動構�
 read -p "Press [Enter] key to move on to the next.";
 
 echo "drush site:install --db-url=mysql://${dbuser}:${dbpass}@localhost:3306/${dbname} --account-name=${adminuser} --account-pass=${adminpass}"
-drush site:install --db-url=mysql://${dbuser}:${dbpass}@localhost:3306/${dbname} --account-name=${adminuser} --account-pass=${adminpass}
+drush site:install -y --db-url=mysql://${dbuser}:${dbpass}@localhost:3306/${dbname} --account-name=${adminuser} --account-pass=${adminpass}
 
 sleep 1
 
