@@ -66,3 +66,4 @@ echo "作成するプロファイルの名前は、$kusanagiprofile です。"
 read -p $CONFIRMMES
 
 kusanagi provision --lamp --dbname=${dbname} --dbuser=${dbuser} --dbpass=${dbpass} --email=${email} --fqdn ${FQDN}  ${kusanagiprofile}
+echo "【Kusanagi】LAMP環境構築 KUSANAGI プロビジョニングを完了しました"
