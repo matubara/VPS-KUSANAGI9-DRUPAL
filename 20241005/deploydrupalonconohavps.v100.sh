@@ -107,6 +107,14 @@ drush site:install -y --db-url=mysql://${dbuser}:${dbpass}@localhost:3306/${dbna
 
 sleep 1
 
+echo "【Drupal】環境構築 webフォルダのオーナーとパーミッションを変更します"
+read -p $CONFIRMMES
+
+sudo chown httpd:www ${provpath}${drupalproject}/web -R
+read -p "Press [Enter] key to move on to the next.";
+sudo -u httpd find ${provpath}${drupalproject}/web -type d -exec chmod 750 {} \;
+sudo -u httpd find ${provpath}${drupalproject}/web -type f -exec chmod 640 {} \;
+
 echo "【Drupal】環境構築 DRUPAL用APACHE設定変更します（/etc/opt/kusanagi/httpd/conf.d の対象ファイルを変更）"
 read -p $CONFIRMMES
 
