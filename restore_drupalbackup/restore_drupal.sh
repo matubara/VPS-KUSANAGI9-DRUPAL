@@ -20,19 +20,19 @@ BG_CYAN="${ESC}[46m"    BG_WHITE="${ESC}[47m"   BG_DEFAULT="${ESC}[49m"
 
 CONFIRMMES="${RED}よろしいですか？ENTERキーを押してください。次に進みます。${RESET}"
 
-profile=stag_d11chatgpt2
+profile=stag_chatgpt3
 drupalproj=d11chatgpt100
+#Drupalプロジェクトパス
+projpath=/home/kusanagi/${profile}/${drupalproj}
 webpath=${projpath}/web
 vendorpath=${projpath}/vendor
-backupfile=20241013_041001_chatgpt100.tar.gz
-backupdb=20241013_041001_chatgpt100.sql
-dbuser=stag_d11chatgpt
-dbname=stag_d11chatgpt
+backupfile=../../archives/20241013_041001_chatgpt100.tar.gz
+backupdb=../../archives/20241013_041001_chatgpt100.sql
+dbuser=testd10d112
+dbname=testd10d112
 dbpass=melb1999
 dbhost=localhost
 
-#Drupalプロジェクトパス
-projpath=/home/kusanagi/${profile}/${drupalproj}
 
 echo "【Drupal】環境構築 KUSANAGI環境 初期化コマンド実行"
 read -p ${CONFIRMMES};
@@ -44,7 +44,7 @@ read -p ${CONFIRMMES};
 cp -f ${webpath}/sites/default/settings.php ${projpath} 
 echo ファイルを展開する
 read -p ${CONFIRMMES};
-tar zxf ./${backupfile}
+tar zxf ${backupfile}
 echo VENDER,WEBフォルダ、COMPOSERファイルを削除する
 read -p ${CONFIRMMES};
 sudo rm -rf ${webpath}
