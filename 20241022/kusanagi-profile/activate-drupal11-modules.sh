@@ -22,6 +22,7 @@ drush pm:install twig_tweak -y
 drush pm:install group -y
 drush pm:install gnode -y
 drush pm:install group_support_revisions -y
+drush pm:install content_moderation -y
 
 #Development
 drush pm:install devel -y
